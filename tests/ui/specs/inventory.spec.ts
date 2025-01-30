@@ -52,6 +52,17 @@ test('Adicionar e remover produtos ao carrinho', async ({ page }) => {
 test('Finalizar compra sem preencher os dados obrigatórios', async ({ page }) => {
     const inventory = new InventoryPage(page);
 
+    const pessoa = {
+        nome: 'Marcos Joaquim',
+        sobrenome: 'Ribeiro'
+    }
+
+    const erros = {
+        obrigacaoPrimeiroNome: 'Error: First Name is required',
+        obrigacaoSobrenome: 'Error: Last Name is required',
+        obrigacaoCaixaPostal: 'Error: Postal Code is required'
+    }
+
     // iterando sobre os produtos e adicionando eles ao carrinho
     for (let produto of produtos) {
         await inventory.adicionarProdutoAoCarrinho(produto.id);
@@ -65,19 +76,19 @@ test('Finalizar compra sem preencher os dados obrigatórios', async ({ page }) =
     await inventory.clicarContinue();
 
     // validando mensagem de erro obrigando o preenchimento do nome
-    await inventory.verificarMensagemErro("Error: First Name is required");
+    await inventory.verificarMensagemErro(erros.obrigacaoPrimeiroNome);
 
     // preenchendo o nome
-    await inventory.preencherCheckout('Marcos Joaquim');
+    await inventory.preencherCheckout(pessoa.nome);
     await inventory.clicarContinue();
 
     // validando mensagem de erro obrigando o preenchimento do sobrenome
-    await inventory.verificarMensagemErro('Error: Last Name is required');
+    await inventory.verificarMensagemErro(erros.obrigacaoSobrenome);
 
     // preenchendo o nome e o sobrenome
-    await inventory.preencherCheckout('Marcos Joaquim', 'Ribeiro');
+    await inventory.preencherCheckout(pessoa.nome, pessoa.sobrenome);
     await inventory.clicarContinue();
 
     // validando mensagem de erro obrigando o preenchimento do código postal
-    await inventory.verificarMensagemErro('Error: Postal Code is required');
+    await inventory.verificarMensagemErro(erros.obrigacaoCaixaPostal);
 })
