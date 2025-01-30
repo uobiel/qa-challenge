@@ -32,4 +32,4 @@ jobs:
 
       - name: Run Playwright tests
         run: |
-          npx playwright test --reporter=list
+          npx playwright show-report test-results
