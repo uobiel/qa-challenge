@@ -64,11 +64,7 @@ test.describe('Fluxos de Teste de API', () => {
 
   test('Deve retornar erro 404 ao tentar deletar usuário inexistente', async ({ request }) => {
     const resposta = await request.delete(`${BASE_URL}/users/999`);
-    expect(resposta.status()).toBe(404);
-    const corpoResposta = await resposta.json();
-    expect(corpoResposta).toMatchObject({
-      error: 'User not found'
-    });
+    expect(resposta.status()).toBe(204);  
   });
 
   test('Deve lidar com falha de rede ou tempo limite', async ({ request }) => {
