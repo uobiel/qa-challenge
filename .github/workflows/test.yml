@@ -24,6 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
+          npx playwright install  
 
       - name: Set permissions
         run: |
@@ -31,5 +32,4 @@ jobs:
 
       - name: Run Playwright tests
         run: |
-          npx playwright install  
           npx playwright test --reporter=list
