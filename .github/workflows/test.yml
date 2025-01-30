@@ -21,14 +21,14 @@ jobs:
         with:
           node-version: '16'  
 
+      - name: Set permissions
+        run: |
+          chmod +x ./node_modules/.bin/playwright
+
       - name: Install dependencies
         run: |
           npm install
           npx playwright install  
-
-      - name: Set permissions
-        run: |
-          chmod +x ./node_modules/.bin/playwright
 
       - name: Run Playwright tests
         run: |
