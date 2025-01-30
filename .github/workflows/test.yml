@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'  
+          node-version: '16'
 
       - name: Install dependencies
         run: |
@@ -27,9 +27,14 @@ jobs:
 
       - name: Install Playwright dependencies
         run: |
+          sudo apt-get update
+          sudo apt-get install -y wget
           npx playwright install --with-deps
+
+      - name: Add execution permissions to Playwright
+        run: |
+          chmod +x node_modules/.bin/playwright
 
       - name: Run Playwright tests
         run: |
-          chmod +x node_modules/.bin/playwright
           npx playwright test
