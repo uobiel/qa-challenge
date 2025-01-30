@@ -33,7 +33,8 @@ jobs:
 
       - name: Add execution permissions to Playwright
         run: |
-          chmod +x node_modules/.bin/playwright
+          sudo chmod +x node_modules/.bin/playwright
+          sudo chmod -R 755 node_modules/playwright
 
       - name: Run Playwright tests
         run: |
